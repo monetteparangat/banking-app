@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.bank.bankingApplication.dto.AccountInfo;
 import com.bank.bankingApplication.dto.BankResponse;
+import com.bank.bankingApplication.dto.EmailDetails;
 import com.bank.bankingApplication.dto.UserRequest;
 import com.bank.bankingApplication.entity.User;
 import com.bank.bankingApplication.repository.IUserRepository;
 import com.bank.bankingApplication.utils.AccountUtils;
 
-import lombok.experimental.var;
 
 
 @Service
@@ -20,6 +20,8 @@ public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private IUserRepository userRepository;
+	@Autowired 
+	private IEmailService emailService;
 
 	@Override
 	public BankResponse createAccount(UserRequest userRequest) {
@@ -50,9 +52,21 @@ public class UserServiceImpl implements IUserService {
 		
 
 			User savedUser = userRepository.save(newUser);
+			String accountNameConcat = AccountUtils.accountName(newUser.getFirstName(), newUser.getLastName());
+			
+			//Send Email if account created successfully
+			EmailDetails emailDetails = EmailDetails.builder()
+					.recepient(savedUser.getEmail())
+					.messageBody("Account has been created: " + accountNameConcat)
+					.subject("Account Creation")
+					.attachment("")
+					.build();
+			
+			emailService.sendEmailAlert(emailDetails);
 
+			//Initialize for Bank Response
 			AccountInfo accountInfo = AccountInfo.builder()
-					.accountName(AccountUtils.accountName(newUser.getFirstName(), newUser.getLastName()))
+					.accountName(accountNameConcat)
 					.accountNumber(newUser.getAccountNumber())
 					.accountBalance(newUser.getAccountBalance())
 					.build();
