@@ -20,7 +20,7 @@ public class AccountUtils {
 		String number = String.valueOf(randomNumber);
 		
 		StringBuilder accountNumber = new StringBuilder();
-		accountNumber.append(year).append(accountNumber);
+		accountNumber.append(year).append(number);
 		
 		return accountNumber.toString();
 	}
