@@ -25,3 +25,4 @@ replay_pid*
 
 # Ignore application properties files
 application-dev.properties
+application.properties
