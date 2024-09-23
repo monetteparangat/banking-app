@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRequest{
@@ -16,7 +16,7 @@ public class UserRequest{
 	private String otherName;
 	private String gender;
 	private String address;
-	private String dateOfOrigin;
+	private String stateOfOrigin;
 	private String email;
 	private String phoneNumber;
 	private String alternativePhoneNumber;

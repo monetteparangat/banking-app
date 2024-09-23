@@ -34,7 +34,7 @@ public class User {
 	private String otherName;
 	private String gender;
 	private String address;
-	private String dateOfOrigin;
+	private String stateOfOrigin;
 	private String accountNumber;
 	private BigDecimal accountBalance;
 	private String email;
